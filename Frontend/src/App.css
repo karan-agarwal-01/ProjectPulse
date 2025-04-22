@@ -5,3 +5,7 @@ body {
     font-style: normal;
     height: 100vh;
 }
+
+.gardient {
+    background: linear-gradient(120deg, #3e11aa 50%, #fafafa 50%);
+}
