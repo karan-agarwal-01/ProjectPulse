@@ -10,9 +10,11 @@ const Card = ({ Project_Types, Total_Projects, Project_Icon }) => {
                 {Project_Icon}
             </div>
         </div>
-        <div className="pl-6 text-sm ubuntu-regular text-[#66686a] cursor-pointer hover:text-[#3e11aa]">Show more</div>
+        <div className="pl-6 text-sm ubuntu-regular text-[#3e11aa] cursor-pointer hover:text-[#66686a] w-[30%]">
+          <div>Show more</div>
+        </div>
     </div>
   )
 }
 
-export default Card
+export default Card;

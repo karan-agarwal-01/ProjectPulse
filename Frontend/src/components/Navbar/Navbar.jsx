@@ -3,7 +3,7 @@ import profilePic from '../../assets/images/anime.webp';
 
 const Navbar = () => {
     return (
-        <nav className="bg-[#fafafa] flex justify-between items-center h-[3.4rem] pr-24 pl-18">
+        <nav className="bg-[#fafafa] flex justify-between items-center h-[3.4rem] w-full pr-24 pl-18 fixed z-10">
             <div className="flex items-center gap-14">
                 <div className="font-medium text-[1.4rem] ubuntu-medium text-[#3e11aa]">ProjectPulse</div>
                 <div className="border-[1px] border-[#b8bec5] py-1.5 rounded-full w-[20rem] flex items-center gap-1 px-2">
