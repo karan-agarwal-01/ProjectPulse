@@ -1,10 +1,15 @@
 import { LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid, Legend } from 'recharts';
+import Card from "../../Cards/Card";
+import { ProjectData, TeamActivity } from './Data/Data';
 import { SiTask } from "react-icons/si";
 import { LuLaptopMinimalCheck } from "react-icons/lu";
 import { MdOutlinePendingActions } from "react-icons/md";
-import Card from "../../Cards/Card";
+import { Link, useNavigate } from 'react-router-dom';
+
 
 const Dashboard = () => {
+
+    const navigate = useNavigate();
 
     const ProjectCard = [
         {
@@ -23,65 +28,7 @@ const Dashboard = () => {
             icon: <MdOutlinePendingActions size={'3.5rem'} color="red" />
         }
     ]
-
-    const ProjectData = [
-        {
-            ProjectName: "Health Engine",
-            TeamManager: "John Doe",
-            StartingDateTime: "22-06-2024 - 12:03 PM",
-            Deadline: "31-08-2024",
-            Budget: 50000,
-            Status: "Delivered",
-        },
-        {
-            ProjectName: "Gojo Bank",
-            TeamManager: "Karan Agarwal",
-            StartingDateTime: "12-08-2024 - 01:55 PM",
-            Deadline: "31-12-2024",
-            Budget: 80000,
-            Status: "Ongoing",
-        },
-        {
-            ProjectName: "Note Taking App",
-            TeamManager: "krishna",
-            StartingDateTime: "01-02-2025 - 05:20 PM",
-            Deadline: "20-02-2025",
-            Budget: 10000,
-            Status: "Pending",
-        }
-    ]
-
-    const TeamActivity = [
-        {
-            TeamName: "Team John",
-            AssignedTasks: 20,
-            Completed: 10,
-            InProgress: 5,
-            Pending: 5,
-        },
-        {
-            TeamName: "Team Sarah",
-            AssignedTasks: 18,
-            Completed: 9,
-            InProgress: 4,
-            Pending: 5,
-        },
-        {
-            TeamName: "Team Alpha",
-            AssignedTasks: 25,
-            Completed: 15,
-            InProgress: 8,
-            Pending: 2,
-        },
-        {
-            TeamName: "Team Karan",
-            AssignedTasks: 10,
-            Completed: 8,
-            InProgress: 1,
-            Pending: 1,
-        },
-    ]
-
+      
     return (
         <>
         <div className="p-4">
@@ -97,29 +44,29 @@ const Dashboard = () => {
         <div className="p-3">
             <div className="bg-[#fafafa] h-auto border border-gray-300 rounded-2xl pb-3">
                 <div className="flex justify-between p-5">
-                    <div className="ubuntu-regular text-lg">Project Overview</div>
+                    <div className="ubuntu-regular text-lg">Recent Projects</div>
                     <div className="ubuntu-regular text-sm border-[1px] border-[#66686a] text-[#66686a] py-0.5 px-3 rounded-3xl mr-5">filter</div>
                 </div>
                 <div className="ubuntu-regular text-sm flex gap-1 justify-between px-5 w-[100%] pb-3">
                     <div className="w-[20%]">Project Name</div>
                     <div className="w-[15%]">Team Manager</div>
-                    <div className="w-[20%]">Starting Date & Time</div>
+                    <div className="w-[20%]">Starting Date</div>
                     <div className="w-[15%]">Deadline</div>
                     <div className="w-[10%]">Budget</div>
                     <div className="w-[10%] px-5">Status</div>
                 </div>
                 {
                 ProjectData.map((data, index) => (
-                    <div key={index} className="ubuntu-regular text-[.8rem] flex gap-1 justify-between items-center px-5 w-[100%] pb-1">
-                        <div className="w-[20%] text-[#66686a] hover:text-[#3e11aa]">{data.ProjectName}</div>
-                        <div className="w-[15%] text-[#66686a]">{data.TeamManager}</div>
-                        <div className="w-[20%] text-[#66686a]">{data.StartingDateTime}</div>
-                        <div className="w-[15%] text-[#66686a]">{data.Deadline}</div>
+                    <div key={index} className="ubuntu-regular text-[.8rem] flex gap-1.5 justify-between items-center px-5 w-[100%] pb-2">
+                        <div className="w-[20%] text-[black] hover:text-[#3e11aa] cursor-pointer" onClick={() => navigate('/manage-tasks', {state: data.ProjectTitle})}>{data.ProjectTitle}</div>
+                        <div className="w-[15%] text-[#66686a]">{data.ProjectManager}</div>
+                        <div className="w-[20%] text-[#66686a]">{data.StartDate}</div>
+                        <div className="w-[15%] text-[#66686a]">{data.EndDate}</div>
                         <div className="w-[10%] text-[#66686a]">{`INR ${data.Budget}`}</div>
-                        <div className={`w-[10%] text-[#fafafa] py-1.5 px-5 rounded-full ${data.Status === 'Delivered' && 'bg-[green]'} ${data.Status === 'Ongoing' && 'bg-[#fcbf49]'} ${data.Status === 'Pending' && 'bg-[red]'}`}>{data.Status}</div>
+                        <div className={`w-[10%] text-[#fafafa] py-1.5 px-3 rounded-2xl text-center ${data.Status === 'Completed' && 'bg-[green]'} ${data.Status === 'Ongoing' && 'bg-[#fcbf49]'} ${data.Status === 'Pending' && 'bg-[red]'}`}>{data.Status}</div>
                     </div>
                 ))}
-                <div className="pl-5 text-[.8rem] ubuntu-regular text-[#3e11aa] cursor-pointer hover:text-[#66686a] py-2 w-[9%]">Show more</div>
+                <Link to='/manage-projects/show-projects' className="pl-5 text-[.8rem] ubuntu-regular text-[#3e11aa] cursor-pointer hover:text-[#66686a] py-2 w-[9%]">Show more</Link>
             </div>
         </div>
         <div className="p-3">
@@ -136,7 +83,7 @@ const Dashboard = () => {
                     {
                         TeamActivity.map((data, index) => (
                         <div key={index} className="ubuntu-regular text-[.8rem] flex gap-1 justify-between px-10 w-[100%] pb-3">
-                            <div className="w-[20%] text-[#66686a]">{data.TeamName}</div>
+                            <div className="w-[20%] text-black hover:text-[#3e11aa] cursor-pointer">{data.TeamName}</div>
                             <div className="w-[20%] text-[#66686a] px-5">{data.AssignedTasks}</div>
                             <div className="w-[20%] text-[#66686a] px-5">{data.Completed}</div>
                             <div className="w-[20%] text-[#66686a] px-5">{data.InProgress}</div>
